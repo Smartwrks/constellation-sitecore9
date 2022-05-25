@@ -40,12 +40,18 @@ namespace Constellation.Feature.Redirects.Pipelines.HttpRequest
 				return;
 			}
 
+			
 			Uri url = new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Query));
 
 
 			Log.Debug($"Constellation RedirectResolver processing: '{url}'", this);
 
-			var redirect = FindRedirectRecordFor(url.LocalPath + url.Query);
+			Log.Info($"Local Path: '{url.AbsolutePath}'", this);
+
+			// Get current language
+			var currentLang = Sitecore.Context.Language.Name.ToLower();
+
+			var redirect = FindRedirectRecordFor("/" + currentLang + url.LocalPath + url.Query);
 
 			if (string.IsNullOrEmpty(redirect?.NewUrl))
 			{
@@ -125,7 +131,9 @@ namespace Constellation.Feature.Redirects.Pipelines.HttpRequest
 		/// </summary>
 		private MarketingRedirect FindRedirectRecordFor(string oldLocalPath)
 		{
-			var siteRoot = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath, Sitecore.Context.Language);
+			var lang = Sitecore.Globalization.Language.Parse("en");
+
+			var siteRoot = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath, lang);
 			var indexable = new SitecoreIndexableItem(siteRoot);
 			var repository = new Repository(Sitecore.Context.Database, ContentSearchManager.GetIndex(indexable));
 			return repository.GetNewUrl(Sitecore.Context.Site.SiteInfo, oldLocalPath);

@@ -346,7 +346,7 @@ namespace Constellation.Feature.Redirects
 
 			var root = Database.GetItem(ItemIDs.MarketingRedirectBucketID);
 
-			var item = Query.SelectSingleItem($"./*/*/*/*/*/*[@#Site Name# = \"{site.Name}\" and @#Old Url# = \"{requestUrl}\"]", root);
+			var item = Query.SelectSingleItem($"./*/*/*/*/*/*[@#Site Name# = \"{site.Name}\" and @#Old Url# = \"{requestUrl.ToLower()}\"]", root);
 
 			if (item == null)
 			{

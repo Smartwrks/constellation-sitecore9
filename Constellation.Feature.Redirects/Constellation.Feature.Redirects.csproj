@@ -38,9 +38,6 @@
       <HintPath>_LegacyLibraries\ComponentArt.Web.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Constellation.Foundation.Contexts, Version=10.1.0.26278, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Constellation.Foundation.Contexts.10.1.0.26278\lib\net48\Constellation.Foundation.Contexts.dll</HintPath>
-    </Reference>
     <Reference Include="Constellation.Foundation.Data, Version=10.1.0.26345, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Constellation.Foundation.Data.10.1.0.26345\lib\net48\Constellation.Foundation.Data.dll</HintPath>
     </Reference>
@@ -150,6 +147,11 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Constellation.Foundation.Contexts\Constellation.Foundation.Contexts.csproj">
+      <Project>{31baf5ce-9eb5-4c13-b035-22dc9a437b4a}</Project>
+      <Name>Constellation.Foundation.Contexts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
